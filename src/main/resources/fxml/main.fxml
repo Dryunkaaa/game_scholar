@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #292e34;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="gameLabel" layoutX="194.0" layoutY="47.0" text="Игра «Грамотей»" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="47.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="firstLevel" fitHeight="80.0" fitWidth="80.0" layoutX="145.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Number-1-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="secondLevel" fitHeight="80.0" fitWidth="80.0" layoutX="90.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Number-2-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="thirdLevel" fitHeight="80.0" fitWidth="80.0" layoutX="200.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Number-3-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fourthLevel" fitHeight="80.0" fitWidth="80.0" layoutX="516.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Number-4-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fifthLevel" fitHeight="80.0" fitWidth="80.0" layoutX="642.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Number-5-icon.png" />
+         </image>
+      </ImageView>
+      <MenuBar prefHeight="25.0" prefWidth="836.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem fx:id="mainMenuItem" mnemonicParsing="false" text="Главное меню" />
+                  <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Выход" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Редактирование">
+            <items>
+              <MenuItem fx:id="loginItem" mnemonicParsing="false" text="Заполнение данных" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Помощь">
+            <items>
+              <MenuItem fx:id="infoItem" mnemonicParsing="false" text="Информация" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="99.0" layoutY="156.0" text="Правописание" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="516.0" layoutY="156.0" text="Литература" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="27.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--Auto update-->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/literate?serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">thequemal7</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <!-- Вывод sql-запросов -->
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+
+        <!--Mappings-->
+        <mapping class="domain.CorrectlySpelledWord"/>
+        <mapping class="domain.MisspelledWord"/>
+        <mapping class="domain.Author"/>
+        <mapping class="domain.Quote"/>
+        <mapping class="domain.Book"/>
+        <mapping class="domain.Word"/>
+        <mapping class="domain.Letter"/>
+        <mapping class="domain.ReplaceableCharacter"/>
+
+    </session-factory>
+</hibernate-configuration>

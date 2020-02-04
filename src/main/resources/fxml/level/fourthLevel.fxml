@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #292e34;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="gameLabel" fx:id="question" layoutX="240.0" layoutY="48.0" text="Чья цитата?" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="47.0" />
+         </font>
+      </Label>
+      <Label fx:id="firstAnswer" layoutX="137.0" layoutY="222.0" text="Вот так" textFill="#f5f3f3">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="secondAnswer" layoutX="137.0" layoutY="308.0" text="Вот так" textFill="#f5f3f3">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="thirdAnswer" layoutX="137.0" layoutY="394.0" text="Вот так" textFill="#f5f3f3">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="fourthAnswer" layoutX="137.0" layoutY="478.0" text="Вот так" textFill="#f5f3f3">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="correctAnswerImage" fitHeight="35.0" fitWidth="35.0" layoutX="90.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/ok-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="wrongAnswerImage" fitHeight="35.0" fitWidth="35.0" layoutX="90.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../images/Close-icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="currentQuestionNumber" layoutX="654.0" layoutY="222.0" text="Label" textFill="#f5f4f4">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="quote" layoutX="65.0" layoutY="145.0" text="Цитата" textFill="#fcf9f9">
+         <font>
+            <Font name="System Italic" size="21.0" />
+         </font>
+      </Label>
+      <MenuBar layoutY="-1.0" prefHeight="31.0" prefWidth="836.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Файл">
+               <items>
+                  <MenuItem fx:id="mainMenuItem" mnemonicParsing="false" text="Главное меню" />
+                  <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Выход" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Редактирование">
+               <items>
+                  <MenuItem fx:id="loginItem" mnemonicParsing="false" text="Заполнение данных" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Помощь">
+               <items>
+                  <MenuItem fx:id="infoItem" mnemonicParsing="false" text="Информация" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</Pane>
