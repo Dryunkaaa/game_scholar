@@ -1,12 +1,11 @@
 package controller;
 
+import application.App;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import application.App;
 
 import java.io.IOException;
 
@@ -35,10 +34,5 @@ public abstract class AbstractController {
 
         closeItem.setOnAction(event -> System.exit(0));
     }
-
-    public static void resetLabelEvents(Label[] labels) {
-        for (Label label : labels) {
-            label.setOnMouseClicked(null);
-        }
-    }
+    
 }

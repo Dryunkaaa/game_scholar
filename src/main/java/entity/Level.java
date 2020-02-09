@@ -1,6 +1,5 @@
 package entity;
 
-import controller.AbstractController;
 import controller.level_controller.LevelResultDisplayController;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -39,6 +38,8 @@ public abstract class Level {
 
     private ImageView wrongAnswerImage;
 
+    private boolean waitForAnswer = true;
+
     public Level(int questionsCount, Label currentQuestionNumber, Label[] answers,
                  ImageView correctAnswerImage, ImageView wrongAnswerImage) {
         this.correctAnswerImage = correctAnswerImage;
@@ -50,8 +51,7 @@ public abstract class Level {
     }
 
     protected void checkAnswer() {
-        //сброс событий нажатия, дабы счетчик номера вопроса не изменялся во время паузы
-        AbstractController.resetLabelEvents(answers);
+        this.waitForAnswer = false;
         correctAnswerImage.setVisible(true);
 
         App.service.submit(() -> {
@@ -77,8 +77,7 @@ public abstract class Level {
                 if (currentQuestionPosition + 1 >= questionsCount) {
                     new LevelResultDisplayController(this).show();
                 } else {
-                    // возврат событий мыши
-                    addEventsToLabels(answers);
+                    waitForAnswer = true;
                     currentQuestionPosition++;
                     correctAnswerImage.setVisible(false);
                     wrongAnswerImage.setVisible(false);
@@ -98,11 +97,13 @@ public abstract class Level {
 
     protected abstract void prepareData();
 
-    protected void addEventsToLabels(Label[] labels) {
+    private void addEventsToLabels(Label[] labels) {
         for (Label label : labels) {
             label.setOnMouseClicked(event -> {
-                this.selectedAnswer = label;
-                checkAnswer();
+                if (waitForAnswer){
+                    this.selectedAnswer = label;
+                    checkAnswer();
+                }
             });
         }
     }

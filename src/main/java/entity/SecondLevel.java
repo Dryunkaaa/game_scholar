@@ -51,8 +51,7 @@ public class SecondLevel extends Level {
 
     @Override
     protected void checkAnswer() {
-        //сброс событий нажатия, дабы счетчик номера вопроса не изменялся во время паузы
-        AbstractController.resetLabelEvents(this.getAnswers());
+        this.setWaitForAnswer(false);
         wordLabel.setText(selectedWord.getValue());
 
         App.service.submit(() -> {
@@ -73,8 +72,7 @@ public class SecondLevel extends Level {
                 if (this.getCurrentQuestionPosition() + 1 >= this.getQuestionsCount()) {
                     new LevelResultDisplayController(this).show();
                 } else {
-                    // возврат событий мыши
-                    addEventsToLabels(this.getAnswers());
+                    this.setWaitForAnswer(true);
                     this.setCurrentQuestionPosition(this.getCurrentQuestionPosition() + 1);
                     wordLabel.setTextFill(Color.WHITE);
                     prepareDataToShow();

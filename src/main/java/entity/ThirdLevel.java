@@ -151,7 +151,7 @@ public class ThirdLevel extends SecondLevel {
 
     private void eventOnFullAnswer(boolean isRightAnswer) {
         Platform.runLater(() -> {
-            AbstractController.resetLabelEvents(this.getAnswers());
+            this.setWaitForAnswer(false);
             wordLabel.setText(selectedWord.getValue());
             if (isRightAnswer) wordLabel.setTextFill(Color.GREEN);
             else wordLabel.setTextFill(Color.RED);
@@ -160,7 +160,7 @@ public class ThirdLevel extends SecondLevel {
         pause();
 
         Platform.runLater(() -> {
-            addEventsToLabels(this.getAnswers());
+            this.setWaitForAnswer(true);
 
             if (this.getCurrentQuestionPosition() + 1 >= this.getQuestionsCount()) {
                 new LevelResultDisplayController(this).show();
