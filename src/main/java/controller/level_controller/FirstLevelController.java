@@ -56,7 +56,7 @@ public class FirstLevelController extends AbstractController implements Initiali
         Label[] answers = {firstAnswer, secondAnswer, thirdAnswer, fourthAnswer};
 
         new FirstLevel(10, currentQuestionNumber, answers,
-                correctAnswerImage, wrongAnswerImage).start();
+                correctAnswerImage, wrongAnswerImage).initLevelView();
     }
 
     @Override

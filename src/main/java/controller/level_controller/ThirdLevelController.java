@@ -46,7 +46,7 @@ public class ThirdLevelController extends AbstractController implements Initiali
         Label[] answers = {firstAnswer, secondAnswer};
 
         new ThirdLevel( 10, currentQuestionNumber, answers, word,
-                null, null).start();
+                null, null).initLevelView();
     }
 
     @Override

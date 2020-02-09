@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "author")
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id","firstName", "lastName"})
 public class Author {
 
     @Id

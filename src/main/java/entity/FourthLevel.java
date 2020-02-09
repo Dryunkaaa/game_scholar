@@ -10,7 +10,6 @@ import service.jpa.QuoteService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FourthLevel extends Level {
 
@@ -23,12 +22,7 @@ public class FourthLevel extends Level {
                        Label[] answers, Label quoteLabel, ImageView correctAnswerImage, ImageView wrongAnswerImage) {
         super(countOfQuestions, numberOfTheCurrentQuestion, answers, correctAnswerImage, wrongAnswerImage);
         this.quoteLabel = quoteLabel;
-    }
-
-    @Override
-    public void start() {
-        initQuotes();
-        prepareDataToShow();
+        quotes = QuoteService.getInstance().getAll();
     }
 
     @Override
@@ -38,65 +32,52 @@ public class FourthLevel extends Level {
 
     @Override
     protected void prepareData() {
-        initAuthors();
+        authors = AuthorService.getInstance().getAll();
+
         Quote quote = getRandomQuote();
         String answerText = quote.getAuthor().getFirstName() + " " + quote.getAuthor().getLastName();
+
         this.setResponseText(answerText);
         quoteLabel.setText(quote.getValue());
-        labelAssignment(getDataToFill());
+
+        distributeLabelsData(getAuthorNameList());
     }
 
-    private List<String> getDataToFill() {
-        List<String> result = new ArrayList<>();
-        List<Author> listOfAuthors = getRandomAnswers(selectedQuote.getAuthor());
-        for (Author author : listOfAuthors) {
+    private List<String> getAuthorNameList() {
+        List<String> authorNameList = new ArrayList<>();
+        List<Author> authorList = getRandomAnswersList(selectedQuote.getAuthor());
+
+        for (Author author : authorList) {
             String authorFullName = author.getFirstName() + " " + author.getLastName();
-            result.add(authorFullName);
+            authorNameList.add(authorFullName);
         }
-        return result;
+
+        return authorNameList;
     }
 
-    private List<Author> getRandomAnswers(Author rightAuthor) {
-        Random random = new Random();
-        List<Author> result = new ArrayList<>();
-        result.add(rightAuthor);
-        removeRightAnswerFromList(rightAuthor);
+    private List<Author> getRandomAnswersList(Author rightAuthor) {
+        List<Author> authorList = new ArrayList<>();
+        authorList.add(rightAuthor);
+
+        authors.remove(rightAuthor);
         // так как всего 4 варианта ответа и правильный уже добавлен
         int numberOfAnswersToAdd = this.getAnswers().length - 1;
+
         for (int i = 0; i < numberOfAnswersToAdd; i++) {
             int index = random.nextInt(authors.size());
-            result.add(authors.get(index));
+            authorList.add(authors.get(index));
             authors.remove(index);
         }
-        return result;
-    }
 
-    private void removeRightAnswerFromList(Author author) {
-        for (int i = 0; i < authors.size(); i++) {
-            if (authors.get(i).getLastName().equals(author.getLastName())) {
-                authors.remove(i);
-                break;
-            }
-        }
-    }
-
-    private void initQuotes() {
-        QuoteService quoteService = QuoteService.getInstance();
-        quotes = quoteService.getAll();
-    }
-
-    private void initAuthors() {
-        AuthorService authorService = AuthorService.getInstance();
-        authors = authorService.getAll();
+        return authorList;
     }
 
     private Quote getRandomQuote() {
-        Random random = new Random();
         int index = random.nextInt(quotes.size());
-        Quote result = quotes.get(index);
+
+        selectedQuote = quotes.get(index);
         quotes.remove(index);
-        selectedQuote = result;
-        return result;
+        return selectedQuote;
     }
 
 }

@@ -59,7 +59,7 @@ public class FourthLevelController extends AbstractController implements Initial
         Label[] answers = {firstAnswer, secondAnswer, thirdAnswer, fourthAnswer};
 
         new FourthLevel( 5, currentQuestionNumber, answers, quote,
-                correctAnswerImage, wrongAnswerImage).start();
+                correctAnswerImage, wrongAnswerImage).initLevelView();
     }
 
     @Override

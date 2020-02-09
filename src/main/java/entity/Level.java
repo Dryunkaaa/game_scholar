@@ -1,12 +1,12 @@
 package entity;
 
+import application.App;
 import controller.level_controller.LevelResultDisplayController;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
-import application.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public abstract class Level {
 
     private int rightAnswersCount = 0;
 
-    private int currentQuestionPosition = 0;
+    private int questionPosition = 0;
 
     private String responseText;
 
@@ -40,6 +40,8 @@ public abstract class Level {
 
     private boolean waitForAnswer = true;
 
+    protected Random random = new Random();
+
     public Level(int questionsCount, Label currentQuestionNumber, Label[] answers,
                  ImageView correctAnswerImage, ImageView wrongAnswerImage) {
         this.correctAnswerImage = correctAnswerImage;
@@ -47,15 +49,19 @@ public abstract class Level {
         this.questionsCount = questionsCount;
         this.answers = answers;
         this.currentQuestionNumber = currentQuestionNumber;
-        addEventsToLabels(answers);
+        addLabelEvents(answers);
     }
+
+    public abstract void restart();
+
+    protected abstract void prepareData();
 
     protected void checkAnswer() {
         this.waitForAnswer = false;
         correctAnswerImage.setVisible(true);
 
         App.service.submit(() -> {
-            searchLabelWithRightAnswer(responseText, answers);
+            getLabelWithRightAnswer(responseText, answers);
 
             if (selectedAnswer == labelWithRightAnswer) {
                 rightAnswersCount++;
@@ -74,30 +80,27 @@ public abstract class Level {
 
             Platform.runLater(() -> {
 
-                if (currentQuestionPosition + 1 >= questionsCount) {
+                if (questionPosition + 1 >= questionsCount) {
                     new LevelResultDisplayController(this).show();
                 } else {
                     waitForAnswer = true;
-                    currentQuestionPosition++;
+                    questionPosition++;
                     correctAnswerImage.setVisible(false);
                     wrongAnswerImage.setVisible(false);
-                    prepareDataToShow();
+                    initLevelView();
                 }
 
             });
         });
     }
 
-    protected void prepareDataToShow() {
-        String currentQuestion = (this.getCurrentQuestionPosition() + 1) + "/" + this.getQuestionsCount();
+    public void initLevelView() {
+        String currentQuestion = (this.getQuestionPosition() + 1) + "/" + this.getQuestionsCount();
         currentQuestionNumber.setText(currentQuestion);
         prepareData();
     }
 
-
-    protected abstract void prepareData();
-
-    private void addEventsToLabels(Label[] labels) {
+    private void addLabelEvents(Label[] labels) {
         for (Label label : labels) {
             label.setOnMouseClicked(event -> {
                 if (waitForAnswer){
@@ -108,9 +111,9 @@ public abstract class Level {
         }
     }
 
-    protected Label searchLabelWithRightAnswer(String text, Label[] labels) {
+    protected Label getLabelWithRightAnswer(String answerText, Label[] labels) {
         for (Label label : labels) {
-            if (label.getText().equals(text)) {
+            if (label.getText().equals(answerText)) {
                 labelWithRightAnswer = label;
                 return label;
             }
@@ -118,19 +121,16 @@ public abstract class Level {
         return new Label();
     }
 
-    protected void labelAssignment(List<String> dataToFill) {
-        List<Integer> validIndexes = createValidIndexes(this.getAnswers().length);
-        Random random = new Random();
+    protected void distributeLabelsData(List<String> dataToFill) {
+        List<Integer> validIndices = createValidIndexes(this.getAnswers().length);
 
         // рандомное присвоение значений лейблам
         for (int i = 0; i < this.getAnswers().length; i++) {
-            int index = random.nextInt(validIndexes.size());
-            this.getAnswers()[validIndexes.get(index)].setText(dataToFill.get(i));
-            validIndexes.remove(index);
+            int index = random.nextInt(validIndices.size());
+            this.getAnswers()[validIndices.get(index)].setText(dataToFill.get(i));
+            validIndices.remove(index);
         }
     }
-
-    public abstract void start();
 
     public void pause() {
         try {
@@ -140,14 +140,12 @@ public abstract class Level {
         }
     }
 
-    public List<Integer> createValidIndexes(int countOfIndexes) {
+    private List<Integer> createValidIndexes(int countOfIndexes) {
         List<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < countOfIndexes; i++) {
             indexes.add(i);
         }
         return indexes;
     }
-
-    public abstract void restart();
 }
 

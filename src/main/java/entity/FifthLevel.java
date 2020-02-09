@@ -10,25 +10,21 @@ import service.jpa.BookService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FifthLevel extends Level {
 
-    private List<Book> listOfBooks;
-    private List<Author> listOfAuthors;
-    private List<Book> validBooks;
+    private List<Book> bookList;
+    private List<Author> authorList;
+    private List<Book> validBookList = new ArrayList<>();
     private Label titleLabel;
 
     public FifthLevel(int countOfQuestions, Label currentQuestionNumber,
                       Label[] answers, Label titleLabel, ImageView correctAnswerImage, ImageView wrongAnswerImage) {
         super(countOfQuestions, currentQuestionNumber, answers,correctAnswerImage, wrongAnswerImage);
         this.titleLabel = titleLabel;
-    }
 
-    @Override
-    public void start() {
-        initLists();
-        prepareDataToShow();
+        // список авторов у которых 3 и более книг так как полей для ответа 4 и 1 из них - не книга автора
+        authorList = AuthorService.getInstance().getAllWithThreeOrMoreBooks();
     }
 
     @Override
@@ -36,52 +32,52 @@ public class FifthLevel extends Level {
         new FifthLevelController().show();
     }
 
-    private void initLists() {
-        BookService bookService = BookService.getInstance();
-        AuthorService authorService = AuthorService.getInstance();
-        listOfBooks = bookService.getAll();
-        // список авторов у которых 3 и более книг так как полей для ответа 4 и 1 из них - не книга автора
-        listOfAuthors = authorService.getAllWithThreeOrMoreBooks();
-        validBooks = new ArrayList<>();
-    }
-
     @Override
     protected void prepareData() {
+        bookList = BookService.getInstance().getAll();
         Author author = getRandomAuthor();
+        
         titleLabel.setText("Автором какой книги не является " + author.getFirstName() + " " + author.getLastName());
-        labelAssignment(getDataToFill(author));
+        distributeLabelsData(getBookNameList(author));
     }
 
     private Author getRandomAuthor() {
-        Random random = new Random();
-        int index = random.nextInt(listOfAuthors.size());
-        Author result = listOfAuthors.get(index);
-        listOfAuthors.remove(index);
+        int index = random.nextInt(authorList.size());
+
+        Author result = authorList.get(index);
+        authorList.remove(index);
         return result;
     }
 
-    private List<String> getDataToFill(Author author) {
-        List<String> result = new ArrayList<>();
-        List<Book> booksList = getRandomAnswers(author);
+    private List<String> getBookNameList(Author author) {
+        List<String> bookNameList = new ArrayList<>();
+        List<Book> booksList = getRandomBooks(author);
+
         for (Book book : booksList) {
-            result.add(book.getName());
+            bookNameList.add(book.getName());
         }
-        return result;
+        return bookNameList;
     }
 
-    private List<Book> getRandomAnswers(Author author) {
-        Random random = new Random();
-        validBooks.clear();
+    private List<Book> getRandomBooks(Author author) {
+        validBookList.clear();
+
         BookService bookService = BookService.getInstance();
-        List<Book> listOfBooks = bookService.getAllByAuthor(author);
-        if (listOfBooks.size() > 3) listOfBooks = bookService.getThreeRandomBooksByAuthor(author);
-        validBooks.addAll(this.listOfBooks);
-        validBooks.removeAll(listOfBooks);
-        int index = random.nextInt(validBooks.size());
-        Book result = validBooks.get(index);
+        List<Book> books = bookService.getAllByAuthor(author);
+
+        if (books.size() > 3){
+            books = bookService.getThreeRandomBooksByAuthor(author);
+        }
+
+        validBookList.addAll(this.bookList);
+        validBookList.removeAll(books);
+
+        int index = random.nextInt(validBookList.size());
+        Book result = validBookList.get(index);
         this.setResponseText(result.getName());
-        listOfBooks.add(result);
-        return listOfBooks;
+        books.add(result);
+
+        return books;
     }
 }
 

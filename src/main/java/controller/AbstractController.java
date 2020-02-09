@@ -34,5 +34,5 @@ public abstract class AbstractController {
 
         closeItem.setOnAction(event -> System.exit(0));
     }
-    
+
 }

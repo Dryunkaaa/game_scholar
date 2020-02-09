@@ -1,6 +1,6 @@
 package entity;
 
-import controller.AbstractController;
+import application.App;
 import controller.level_controller.LevelResultDisplayController;
 import controller.level_controller.SecondLevelController;
 import domain.ReplaceableCharacter;
@@ -10,12 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import service.jpa.WordService;
-import application.App;
 import utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SecondLevel extends Level {
 
@@ -31,12 +29,7 @@ public class SecondLevel extends Level {
                        Label[] answers, Label wordLabel, ImageView correctAnswerImage, ImageView wrongAnswerImage) {
         super(countOfQuestions, currentQuestionNumber, answers, correctAnswerImage, wrongAnswerImage);
         this.wordLabel = wordLabel;
-    }
-
-    @Override
-    public void start() {
-        initWords();
-        prepareDataToShow();
+        words = WordService.getInstance().getAllWithOneMissedChar();
     }
 
     @Override
@@ -44,9 +37,26 @@ public class SecondLevel extends Level {
         new SecondLevelController().show();
     }
 
-    protected void initWords() {
-        WordService wordService = WordService.getInstance();
-        words = wordService.getAllWithOneMissedChar();
+    @Override
+    protected void prepareData() {
+        Word word = getRandomWord();
+        int missingCharacterIndex = 0;
+
+        for (ReplaceableCharacter replaceableCharacter : word.getReplaceableCharacters()) {
+            missingCharacterIndex = replaceableCharacter.getCharacterIndex();
+            replaceableChar = replaceableCharacter;
+        }
+
+        wordLabel.setText(StringUtils.deleteStringCharacter(word.getValue(), missingCharacterIndex));
+
+        String rightCharacter = String.valueOf(word.getValue().charAt(missingCharacterIndex));
+        String replaceableCharacter = replaceableChar.getLetter().getValue();
+
+        List<String> characters = new ArrayList<>();
+        characters.add(rightCharacter);
+        characters.add(replaceableCharacter);
+
+        distributeLabelsData(characters);
     }
 
     @Override
@@ -69,48 +79,24 @@ public class SecondLevel extends Level {
 
             Platform.runLater(() -> {
 
-                if (this.getCurrentQuestionPosition() + 1 >= this.getQuestionsCount()) {
+                if (this.getQuestionPosition() + 1 >= this.getQuestionsCount()) {
                     new LevelResultDisplayController(this).show();
                 } else {
                     this.setWaitForAnswer(true);
-                    this.setCurrentQuestionPosition(this.getCurrentQuestionPosition() + 1);
+                    this.setQuestionPosition(this.getQuestionPosition() + 1);
                     wordLabel.setTextFill(Color.WHITE);
-                    prepareDataToShow();
+                    initLevelView();
                 }
 
             });
         });
     }
 
-    @Override
-    protected void prepareData() {
-        Word word = getRandomWord();
-        int missingCharacterIndex = 0;
-
-        for (ReplaceableCharacter replaceableCharacter : word.getReplaceableCharacters()) {
-            missingCharacterIndex = replaceableCharacter.getCharacterIndex();
-            replaceableChar = replaceableCharacter;
-        }
-
-        wordLabel.setText(StringUtils.deleteStringCharacter(word.getValue(), missingCharacterIndex));
-
-        String rightCharacter = String.valueOf(word.getValue().charAt(missingCharacterIndex));
-        String replaceableCharacter = replaceableChar.getLetter().getValue();
-
-        List<String> characters = new ArrayList<>();
-        characters.add(rightCharacter);
-        characters.add(replaceableCharacter);
-
-        labelAssignment(characters);
-    }
-
     protected Word getRandomWord() {
-        Random random = new Random();
         int index = random.nextInt(words.size());
-        Word result = words.get(index);
+        selectedWord = words.get(index);
         words.remove(index);
-        selectedWord = result;
-        return result;
+        return selectedWord;
     }
 
     private boolean isRightAnswer() {

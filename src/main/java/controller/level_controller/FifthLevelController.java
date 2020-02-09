@@ -56,7 +56,7 @@ public class FifthLevelController extends AbstractController implements Initiali
         Label[] answers = {firstAnswer, secondAnswer, thirdAnswer, fourthAnswer};
 
         new FifthLevel(5, currentQuestionNumber, answers, title,
-                correctAnswerImage, wrongAnswerImage).start();
+                correctAnswerImage, wrongAnswerImage).initLevelView();
     }
 
     @Override

@@ -46,7 +46,7 @@ public class SecondLevelController extends AbstractController implements Initial
         Label[] answers = {firstAnswer, secondAnswer};
 
         new SecondLevel(10, currentQuestionNumber, answers, word,
-                null, null).start();
+                null, null).initLevelView();
     }
 
     @Override
