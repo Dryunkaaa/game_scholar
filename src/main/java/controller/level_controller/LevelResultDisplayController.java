@@ -64,9 +64,10 @@ public class LevelResultDisplayController extends AbstractController implements 
         title.setText(title.getText() + level.getRightAnswersCount() + "/" + level.getQuestionsCount() + ".");
         mainMenuButton.setOnAction(event -> new MainPageController().show());
 
+        restartLevelButton.setOnAction(event-> level.restart());
+
         displayStars();
         displayErrorList();
-        handleLevelRestartEvent();
     }
 
     @FXML
@@ -80,23 +81,6 @@ public class LevelResultDisplayController extends AbstractController implements 
             if (level.getErrorList().size() == 0) errorArea.setText("Ошибок нет.");
             else errorArea.setText(errors);
             errorArea.setVisible(true);
-        });
-    }
-
-    @FXML
-    private void handleLevelRestartEvent() {
-        restartLevelButton.setOnAction(event -> {
-            if (level.getClass().equals(FirstLevel.class)) {
-                new FirstLevelController().show();
-            } else if (level.getClass().equals(SecondLevel.class)) {
-                new SecondLevelController().show();
-            } else if (level.getClass().equals(ThirdLevel.class)) {
-                new ThirdLevelController().show();
-            } else if (level.getClass().equals(FourthLevel.class)) {
-                new FourthLevelController().show();
-            } else if (level.getClass().equals(FifthLevel.class)) {
-                new FifthLevelController().show();
-            }
         });
     }
 

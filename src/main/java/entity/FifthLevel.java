@@ -1,5 +1,6 @@
 package entity;
 
+import controller.level_controller.FifthLevelController;
 import domain.Author;
 import domain.Book;
 import javafx.scene.control.Label;
@@ -28,6 +29,11 @@ public class FifthLevel extends Level {
     public void start() {
         initLists();
         prepareDataToShow();
+    }
+
+    @Override
+    public void restart() {
+        new FifthLevelController().show();
     }
 
     private void initLists() {

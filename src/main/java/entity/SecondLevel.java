@@ -2,6 +2,7 @@ package entity;
 
 import controller.AbstractController;
 import controller.level_controller.LevelResultDisplayController;
+import controller.level_controller.SecondLevelController;
 import domain.ReplaceableCharacter;
 import domain.Word;
 import javafx.application.Platform;
@@ -36,6 +37,11 @@ public class SecondLevel extends Level {
     public void start() {
         initWords();
         prepareDataToShow();
+    }
+
+    @Override
+    public void restart() {
+        new SecondLevelController().show();
     }
 
     protected void initWords() {

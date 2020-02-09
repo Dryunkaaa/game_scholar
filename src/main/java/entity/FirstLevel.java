@@ -1,5 +1,6 @@
 package entity;
 
+import controller.level_controller.FirstLevelController;
 import domain.CorrectlySpelledWord;
 import domain.MisspelledWord;
 import javafx.scene.control.Label;
@@ -26,6 +27,11 @@ public class FirstLevel extends Level {
     public void start() {
         initResponseWords();
         prepareDataToShow();
+    }
+
+    @Override
+    public void restart() {
+        new FirstLevelController().show();
     }
 
     private void initResponseWords() {

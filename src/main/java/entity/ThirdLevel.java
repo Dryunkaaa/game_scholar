@@ -2,6 +2,7 @@ package entity;
 
 import controller.AbstractController;
 import controller.level_controller.LevelResultDisplayController;
+import controller.level_controller.ThirdLevelController;
 import domain.ReplaceableCharacter;
 import domain.Word;
 import javafx.application.Platform;
@@ -62,6 +63,11 @@ public class ThirdLevel extends SecondLevel {
         this.getCurrentQuestionNumber().setText(currentQuestion);
         fillWordLabelText();
         prepareData();
+    }
+
+    @Override
+    public void restart() {
+        new ThirdLevelController().show();
     }
 
     private void fillWordLabelText() {

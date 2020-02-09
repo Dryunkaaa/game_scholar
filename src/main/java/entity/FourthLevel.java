@@ -1,5 +1,6 @@
 package entity;
 
+import controller.level_controller.FourthLevelController;
 import domain.Author;
 import domain.Quote;
 import javafx.scene.control.Label;
@@ -28,6 +29,11 @@ public class FourthLevel extends Level {
     public void start() {
         initQuotes();
         prepareDataToShow();
+    }
+
+    @Override
+    public void restart() {
+        new FourthLevelController().show();
     }
 
     @Override

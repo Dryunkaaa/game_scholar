@@ -139,12 +139,14 @@ public abstract class Level {
         }
     }
 
-        public List<Integer> createValidIndexes(int countOfIndexes) {
+    public List<Integer> createValidIndexes(int countOfIndexes) {
         List<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < countOfIndexes; i++) {
             indexes.add(i);
         }
         return indexes;
     }
+
+    public abstract void restart();
 }
 
