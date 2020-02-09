@@ -43,10 +43,12 @@ public class LoginController extends AbstractController implements Initializable
             String login = loginField.getText();
             String password = passwordField.getText();
 
-            if (login.equals("admin") && password.equals("admin"))
+            if (login.equals("admin") && password.equals("admin")) {
                 new DataFillController().show();
-            else
+            } else {
                 errorLabel.setVisible(true);
+            }
+
         });
     }
 

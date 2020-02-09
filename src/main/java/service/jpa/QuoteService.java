@@ -38,15 +38,17 @@ public class QuoteService {
     public Quote getQuoteByValue(String value) {
         AbstractDao<Quote> abstractDao = new AbstractDao<>(Quote.class);
         Session session = abstractDao.openSession();
+
         Query query = session.createQuery("from Quote q where q.value = :value");
         query.setParameter("value", value);
-        Quote result = null;
+
         try {
-            result = (Quote) query.getSingleResult();
+            return  (Quote) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        }finally {
+            session.close();
         }
-        session.close();
-        return result;
+
     }
 }

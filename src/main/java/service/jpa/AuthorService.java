@@ -28,16 +28,18 @@ public class AuthorService {
     public Author getByLastName(String name) {
         AbstractDao<Author> authorAbstractDao = new AbstractDao<>(Author.class);
         Session session = authorAbstractDao.openSession();
+
         Query query = session.createQuery("from Author a where a.lastName = :name");
         query.setParameter("name", name);
-        Author result = null;
+
         try {
-            result = (Author) query.getSingleResult();
+            return (Author) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        }finally {
+            session.close();
         }
-        session.close();
-        return result;
+
     }
 
     public List<Author> getAll() {
@@ -48,9 +50,11 @@ public class AuthorService {
     public List<Author> getAllWithThreeOrMoreBooks() {
         List<Author> authors = getAll();
         List<Author> result = new ArrayList<>();
+
         for (Author author : authors) {
             if (author.getBooks().size() > 2) result.add(author);
         }
+
         return result;
     }
 

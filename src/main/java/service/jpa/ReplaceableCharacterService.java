@@ -23,9 +23,11 @@ public class ReplaceableCharacterService {
     public void create(Word word, Letter letter, int charIndex) {
         AbstractDao<ReplaceableCharacter> abstractDao = new AbstractDao<>(ReplaceableCharacter.class);
         ReplaceableCharacter character = new ReplaceableCharacter();
+
         character.setWord(word);
         character.setLetter(letter);
         character.setCharacterIndex(charIndex);
+
         abstractDao.createDao(character);
     }
 

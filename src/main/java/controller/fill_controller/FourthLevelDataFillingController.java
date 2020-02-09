@@ -54,15 +54,18 @@ public class FourthLevelDataFillingController extends AbstractController impleme
     @FXML
     private void handleSaveEvent() {
         saveButton.setOnAction(event -> {
-            if (!authorNameField.getText().equals("")) {
+            if (!authorNameField.getText().isEmpty()) {
                 AuthorService authorService = AuthorService.getInstance();
+
                 String[] nameParts = authorNameField.getText().split("\\s+");
                 // в поле имени запрещено вписывать 3 слова
                 if (nameParts.length > 2) {
                     return;
                 }
+
                 String name = "";
                 String lastName = "";
+
                 // если поле имени хранит только 1 слово, то это фамилия
                 if (nameParts.length == 1) {
                     lastName = nameParts[0];
@@ -70,18 +73,20 @@ public class FourthLevelDataFillingController extends AbstractController impleme
                     name = nameParts[0];
                     lastName = nameParts[1];
                 }
+
                 authorService.create(name, lastName);
                 Author author = authorService.getByLastName(lastName);
 
-                if (!quoteField.getText().equals("")) {
+                if (!quoteField.getText().isEmpty()) {
                     QuoteService quoteService = QuoteService.getInstance();
                     quoteService.create(quoteField.getText(), author);
                 }
 
-                if (!bookField.getText().equals("")) {
+                if (!bookField.getText().isEmpty()) {
                     BookService bookService = BookService.getInstance();
                     bookService.create(bookField.getText(), author);
                 }
+
                 resetTextFieldsData();
             }
         });

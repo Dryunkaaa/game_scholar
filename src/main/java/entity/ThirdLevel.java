@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import service.jpa.ReplaceableCharacterService;
 import service.jpa.WordService;
-import start.Main;
+import application.App;
 import utils.StringUtils;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class ThirdLevel extends SecondLevel {
 
     @Override
     protected void checkAnswer() {
-        Main.service.submit(() -> {
+        App.service.submit(() -> {
 
             if (isRightAnswer()) {
 

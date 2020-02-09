@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
-import start.Main;
+import application.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public abstract class Level {
         AbstractController.resetLabelEvents(answers);
         correctAnswerImage.setVisible(true);
 
-        Main.service.submit(() -> {
+        App.service.submit(() -> {
             searchLabelWithRightAnswer(responseText, answers);
 
             if (selectedAnswer == labelWithRightAnswer) {

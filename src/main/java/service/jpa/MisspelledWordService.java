@@ -23,10 +23,10 @@ public class MisspelledWordService {
 
     public List<MisspelledWord> getAllWordsByOwner(CorrectlySpelledWord correctlySpelledWord) {
         AbstractDao<MisspelledWord> abstractDao = new AbstractDao<>(MisspelledWord.class);
-        List<MisspelledWord> result = null;
         Session session = abstractDao.openSession();
+
         String query = "from MisspelledWord w where w.correctlySpelledWord.id = " + correctlySpelledWord.getId();
-        result = session.createQuery(query, MisspelledWord.class).list();
+        List<MisspelledWord> result = session.createQuery(query, MisspelledWord.class).list();
         session.close();
         return result;
     }

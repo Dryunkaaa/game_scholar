@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import service.jpa.WordService;
-import start.Main;
+import application.App;
 import utils.StringUtils;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class SecondLevel extends Level {
         AbstractController.resetLabelEvents(this.getAnswers());
         wordLabel.setText(selectedWord.getValue());
 
-        Main.service.submit(() -> {
+        App.service.submit(() -> {
 
             if (isRightAnswer()) { // выбран правильный елемент
                 int countOfRightAnswers = this.getRightAnswersCount();

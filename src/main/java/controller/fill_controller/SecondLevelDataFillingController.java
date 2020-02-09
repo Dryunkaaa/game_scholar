@@ -6,6 +6,7 @@ import domain.Word;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -61,6 +62,7 @@ public class SecondLevelDataFillingController extends AbstractController impleme
                 WordService wordService = WordService.getInstance();
                 LetterService letterService = LetterService.getInstance();
                 ReplaceableCharacterService replaceableCharacterService = ReplaceableCharacterService.getInstance();
+
                 String wordValue = wordField.getText();
                 wordService.create(wordValue);
                 Word word1 = wordService.getByValue(wordValue);
@@ -71,8 +73,8 @@ public class SecondLevelDataFillingController extends AbstractController impleme
                     int index = Integer.parseInt(partsOfIndexes[i]);
                     replaceableCharacterService.create(word1, letter, index);
                 }
-
             }
+
             resetTextFieldsData();
         });
     }

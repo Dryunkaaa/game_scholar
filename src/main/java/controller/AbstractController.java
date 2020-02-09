@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import start.Main;
+import application.App;
 
 import java.io.IOException;
 
@@ -17,9 +17,10 @@ public abstract class AbstractController {
     public void loadControllerWindow(Initializable controller, String pathToFxml) {
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemClassLoader().getResource(pathToFxml));
         loader.setController(controller);
+
         try {
             Parent root1 = loader.load();
-            Main.getWindow().setScene(new Scene(root1));
+            App.getWindow().setScene(new Scene(root1));
         } catch (IOException e) {
             e.printStackTrace();
         }

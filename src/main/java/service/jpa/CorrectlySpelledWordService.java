@@ -31,16 +31,18 @@ public class CorrectlySpelledWordService {
     public CorrectlySpelledWord getByValue(String value) {
         AbstractDao<CorrectlySpelledWord> abstractDao = new AbstractDao<>(CorrectlySpelledWord.class);
         Session session = abstractDao.openSession();
+
         Query query = session.createQuery("from CorrectlySpelledWord w where w.value = :value");
         query.setParameter("value", value);
-        CorrectlySpelledWord result = null;
+
         try {
-            result = (CorrectlySpelledWord) query.getSingleResult();
+            return  (CorrectlySpelledWord) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        }finally {
+            session.close();
         }
-        session.close();
-        return result;
+
     }
 
     public static CorrectlySpelledWordService getInstance(){

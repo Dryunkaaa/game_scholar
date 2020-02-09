@@ -37,16 +37,18 @@ public class WordService {
     public Word getByValue(String value) {
         AbstractDao<Word> abstractDao = new AbstractDao<>(Word.class);
         Session session = abstractDao.openSession();
+
         Query query = session.createQuery("from Word w where w.value = :value");
         query.setParameter("value", value);
-        Word result = null;
+
         try {
-            result = (Word) query.getSingleResult();
+            return (Word) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            session.close();
         }
-        session.close();
-        return result;
+
     }
 
     public List<Word> getAllWithOneMissedChar() {

@@ -72,6 +72,7 @@ public class LevelResultDisplayController extends AbstractController implements 
     @FXML
     private void displayErrorList() {
         errorListDisplayButton.setOnAction(event -> {
+
             if (level.getErrorList().size() == 0) {
                 errorArea.setText("Ошибок нет.");
             } else {
@@ -90,6 +91,7 @@ public class LevelResultDisplayController extends AbstractController implements 
     private void displayStars() {
         int starsReceivedNumber = level.getRightAnswersCount() * STARS_COUNT / level.getQuestionsCount();
         int inactiveStarsNumber = STARS_COUNT - starsReceivedNumber;
+
         for (int i = STARS_COUNT - inactiveStarsNumber; i < STARS_COUNT; i++) {
             stars[i].setOpacity(0.1);
         }

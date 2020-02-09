@@ -44,6 +44,7 @@ public class ThirdLevelController extends AbstractController implements Initiali
         handleMenuBarEvents(closeItem, loginItem, mainMenuItem, infoItem);
 
         Label[] answers = {firstAnswer, secondAnswer};
+
         new ThirdLevel( 10, currentQuestionNumber, answers, word,
                 null, null).start();
     }

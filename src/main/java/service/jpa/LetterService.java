@@ -20,6 +20,7 @@ public class LetterService {
 
     public void create(String value) {
         AbstractDao<Letter> abstractDao = new AbstractDao<>(Letter.class);
+
         if (getByValue(value) == null) {
             Letter letter = new Letter();
             letter.setValue(value);
@@ -30,15 +31,17 @@ public class LetterService {
     public Letter getByValue(String value) {
         AbstractDao<Letter> abstractDao = new AbstractDao<>(Letter.class);
         Session session = abstractDao.openSession();
+
         Query query = session.createQuery("from Letter l where l.value=:value");
         query.setParameter("value", value);
-        Letter result = null;
+
         try {
-            result = (Letter) query.getSingleResult();
+            return  (Letter) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
+        }finally {
+            session.close();
         }
-        session.close();
-        return result;
+
     }
 }

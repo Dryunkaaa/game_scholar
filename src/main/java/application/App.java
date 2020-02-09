@@ -1,4 +1,4 @@
-package start;
+package application;
 
 import controller.MainPageController;
 import domain.Word;
@@ -10,7 +10,7 @@ import storage.AbstractDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main extends Application {
+public class App extends Application {
 
     @Getter
     private static Stage window;

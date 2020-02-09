@@ -59,14 +59,17 @@ public class FirstLevelDataFillingController extends AbstractController implemen
             if (allFieldsContainsData()) {
                 CorrectlySpelledWordService correctlySpelledWordService = CorrectlySpelledWordService.getInstance();
                 MisspelledWordService misspelledWordService = MisspelledWordService.getInstance();
+
                 correctlySpelledWordService.create(firstField.getText());
-                CorrectlySpelledWord correctlySpelledWord = correctlySpelledWordService.getByValue(firstField.getText());
+                CorrectlySpelledWord correctlyWord = correctlySpelledWordService.getByValue(firstField.getText());
+
                 // не сохранять если слово хранит другие варианты написания
-                if (correctlySpelledWord.getMisspelledWords().size() != 3) {
-                    misspelledWordService.create(secondField.getText(), correctlySpelledWord);
-                    misspelledWordService.create(thirdField.getText(), correctlySpelledWord);
-                    misspelledWordService.create(fourthField.getText(), correctlySpelledWord);
+                if (correctlyWord.getMisspelledWords().size() != 3) {
+                    misspelledWordService.create(secondField.getText(), correctlyWord);
+                    misspelledWordService.create(thirdField.getText(), correctlyWord);
+                    misspelledWordService.create(fourthField.getText(), correctlyWord);
                 }
+
                 resetTextFieldsData();
             }
         });
