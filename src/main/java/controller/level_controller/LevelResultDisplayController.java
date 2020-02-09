@@ -63,8 +63,7 @@ public class LevelResultDisplayController extends AbstractController implements 
 
         title.setText(title.getText() + level.getRightAnswersCount() + "/" + level.getQuestionsCount() + ".");
         mainMenuButton.setOnAction(event -> new MainPageController().show());
-
-        restartLevelButton.setOnAction(event-> level.restart());
+        restartLevelButton.setOnAction(event -> level.restart());
 
         displayStars();
         displayErrorList();
@@ -73,13 +72,16 @@ public class LevelResultDisplayController extends AbstractController implements 
     @FXML
     private void displayErrorList() {
         errorListDisplayButton.setOnAction(event -> {
-            String errors = "";
-            for (int i = 0; i < level.getErrorList().size(); i++) {
-                if (i == 0) errors += level.getErrorList().get(i);
-                else errors += "\n" + level.getErrorList().get(i);
+            if (level.getErrorList().size() == 0) {
+                errorArea.setText("Ошибок нет.");
+            } else {
+
+                for (int i = 0; i < level.getErrorList().size(); i++) {
+                    if (i != 0) errorArea.setText(errorArea.getText() + "\n");
+                    errorArea.setText(errorArea.getText() + level.getErrorList().get(i));
+                }
             }
-            if (level.getErrorList().size() == 0) errorArea.setText("Ошибок нет.");
-            else errorArea.setText(errors);
+
             errorArea.setVisible(true);
         });
     }
