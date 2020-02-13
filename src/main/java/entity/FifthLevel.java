@@ -36,7 +36,7 @@ public class FifthLevel extends Level {
     protected void prepareData() {
         bookList = BookService.getInstance().getAll();
         Author author = getRandomAuthor();
-        
+
         titleLabel.setText("Автором какой книги не является " + author.getFirstName() + " " + author.getLastName());
         distributeLabelsData(getBookNameList(author));
     }

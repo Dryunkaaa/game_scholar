@@ -18,10 +18,7 @@ public class StringUtils {
             array[indexes[i]] = '?';
         }
 
-        for (int i = 0; i < array.length; i++) {
-            builder.append(array[i]);
-        }
-
+        builder.append(array);
         return builder.toString();
     }
 }
