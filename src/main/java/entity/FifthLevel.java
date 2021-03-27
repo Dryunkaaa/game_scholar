@@ -20,7 +20,7 @@ public class FifthLevel extends Level {
 
     public FifthLevel(int countOfQuestions, Label currentQuestionNumber,
                       Label[] answers, Label titleLabel, ImageView correctAnswerImage, ImageView wrongAnswerImage) {
-        super(countOfQuestions, currentQuestionNumber, answers,correctAnswerImage, wrongAnswerImage);
+        super(countOfQuestions, currentQuestionNumber, answers, correctAnswerImage, wrongAnswerImage);
         this.titleLabel = titleLabel;
 
         // список авторов у которых 3 и более книг так как полей для ответа 4 и 1 из них - не книга автора
@@ -65,7 +65,7 @@ public class FifthLevel extends Level {
         BookService bookService = BookService.getInstance();
         List<Book> books = bookService.getAllByAuthor(author);
 
-        if (books.size() > 3){
+        if (books.size() > 3) {
             books = bookService.getThreeRandomBooksByAuthor(author);
         }
 

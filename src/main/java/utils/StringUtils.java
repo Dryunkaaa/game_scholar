@@ -3,11 +3,7 @@ package utils;
 public class StringUtils {
 
     public static String deleteStringCharacter(String str, int index) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(str, 0, index).
-                append("?").
-                append(str.substring(index + 1));
-        return builder.toString();
+        return str.substring(0, index) + "?" + str.substring(index + 1);
     }
 
     public static String deleteStringCharacter(String str, int[] indexes) {

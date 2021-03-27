@@ -24,16 +24,12 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         window = primaryStage;
         new MainPageController().show();
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        primaryStage.setOnCloseRequest(event -> {
-            System.exit(0);
-        });
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
     }
-
-
 }

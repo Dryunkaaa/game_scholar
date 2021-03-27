@@ -3,17 +3,17 @@ package controller.fill_controller;
 import controller.AbstractController;
 import domain.Letter;
 import domain.Word;
-import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import service.jpa.*;
+import service.jpa.LetterService;
+import service.jpa.ReplaceableCharacterService;
+import service.jpa.WordService;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SecondLevelDataFillingController extends AbstractController implements Initializable {
 
@@ -86,12 +86,8 @@ public class SecondLevelDataFillingController extends AbstractController impleme
     }
 
     private boolean allFieldsContainsData() {
-        if (wordField.getText().isEmpty() || indexesField.getText().isEmpty() ||
-                charactersField.getText().isEmpty()) {
-
-            return false;
-        }
-        return true;
+        return !wordField.getText().isEmpty() && !indexesField.getText().isEmpty() &&
+                !charactersField.getText().isEmpty();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package entity;
 
+import application.App;
 import controller.level_controller.LevelResultDisplayController;
 import controller.level_controller.ThirdLevelController;
 import domain.ReplaceableCharacter;
@@ -10,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import service.jpa.ReplaceableCharacterService;
 import service.jpa.WordService;
-import application.App;
 import utils.StringUtils;
 
 import java.util.ArrayList;
@@ -99,10 +99,7 @@ public class ThirdLevel extends SecondLevel {
         excludedCharsList.clear();
         missingCharacterPosition = 0;
 
-        for (ReplaceableCharacter character : word.getReplaceableCharacters()) {
-            characters.add(character);
-        }
-
+        characters.addAll(word.getReplaceableCharacters());
         ReplaceableCharacterService.getInstance().sortByIndexNumber(characters);
     }
 
@@ -120,8 +117,7 @@ public class ThirdLevel extends SecondLevel {
     private int[] getIndicesArrayMissingChars(List<ReplaceableCharacter> excludedList) {
         int[] array = new int[characters.size() - excludedList.size()];
 
-        List<ReplaceableCharacter> temp = new ArrayList<>();
-        temp.addAll(characters);
+        List<ReplaceableCharacter> temp = new ArrayList<>(characters);
         temp.removeAll(excludedList);
 
         for (int i = 0; i < temp.size(); i++) {
@@ -160,7 +156,6 @@ public class ThirdLevel extends SecondLevel {
         int index = characters.get(missingCharacterPosition).getCharacterIndex();
         String character = String.valueOf(selectedWord.getValue().charAt(index));
 
-        if (this.getSelectedAnswer().getText().equals(character)) return true;
-        return false;
+        return this.getSelectedAnswer().getText().equals(character);
     }
 }

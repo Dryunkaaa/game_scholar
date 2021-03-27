@@ -118,6 +118,7 @@ public abstract class Level {
                 return label;
             }
         }
+
         return new Label();
     }
 

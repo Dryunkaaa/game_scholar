@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AbstractDao<T> {
 
-    private Class<T> tClass = null;
+    private Class<T> tClass;
 
     public static final SessionFactory SESSION_FACTORY = new Configuration().configure("/hibernate/hibernate.cfg.xml").buildSessionFactory();
 

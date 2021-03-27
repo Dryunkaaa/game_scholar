@@ -64,7 +64,7 @@ public class FourthLevelDataFillingController extends AbstractController impleme
                 }
 
                 String name = "";
-                String lastName = "";
+                String lastName;
 
                 // если поле имени хранит только 1 слово, то это фамилия
                 if (nameParts.length == 1) {

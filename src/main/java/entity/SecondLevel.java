@@ -102,7 +102,7 @@ public class SecondLevel extends Level {
     private boolean isRightAnswer() {
         String text = this.getSelectedAnswer().getText();
         String character = replaceableChar.getLetter().getValue();
-        if (!text.equals(character)) return true;
-        return false;
+
+        return !text.equals(character);
     }
 }

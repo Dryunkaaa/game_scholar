@@ -13,8 +13,6 @@ import java.util.List;
 
 public class FirstLevel extends Level {
 
-    private CorrectlySpelledWord selectedWord;
-
     private List<CorrectlySpelledWord> correctlyWords;
 
     public FirstLevel(int countOfQuestions, Label currentQuestionLabel, Label[] answers,
@@ -47,12 +45,10 @@ public class FirstLevel extends Level {
     private CorrectlySpelledWord getRandomWord() {
         int index = random.nextInt(correctlyWords.size());
 
-        CorrectlySpelledWord result = correctlyWords.get(index);
+        CorrectlySpelledWord selectedWord = correctlyWords.get(index);
         correctlyWords.remove(index);
-
-        selectedWord = result;
         this.setResponseText(selectedWord.getValue());
-        return result;
-    }
 
+        return selectedWord;
+    }
 }

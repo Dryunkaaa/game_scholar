@@ -2,17 +2,16 @@ package controller.fill_controller;
 
 import controller.AbstractController;
 import domain.CorrectlySpelledWord;
-import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import service.jpa.CorrectlySpelledWordService;
 import service.jpa.MisspelledWordService;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class FirstLevelDataFillingController extends AbstractController implements Initializable {
 
@@ -83,12 +82,8 @@ public class FirstLevelDataFillingController extends AbstractController implemen
     }
 
     private boolean allFieldsContainsData() {
-        if (firstField.getText().isEmpty() || secondField.getText().isEmpty()
-                || thirdField.getText().isEmpty() || fourthField.getText().isEmpty()) {
-
-            return false;
-        }
-        return true;
+        return !firstField.getText().isEmpty() && !secondField.getText().isEmpty()
+                && !thirdField.getText().isEmpty() && !fourthField.getText().isEmpty();
     }
 
     @Override

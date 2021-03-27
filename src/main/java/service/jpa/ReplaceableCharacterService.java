@@ -5,7 +5,6 @@ import domain.ReplaceableCharacter;
 import domain.Word;
 import storage.AbstractDao;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,9 +30,8 @@ public class ReplaceableCharacterService {
         abstractDao.createDao(character);
     }
 
-    public List<ReplaceableCharacter> sortByIndexNumber(List<ReplaceableCharacter> characters) {
-        Collections.sort(characters, characterIndexesComparator);
-        return characters;
+    public void sortByIndexNumber(List<ReplaceableCharacter> characters) {
+        characters.sort(characterIndexesComparator);
     }
 
     private Comparator<ReplaceableCharacter> characterIndexesComparator = (rc1, rc2) -> {
